@@ -59,7 +59,9 @@ You will find that a new 1GB storage has now been created as a persistent volume
 
 ## Adding an application
 
-Applications can be added as a single application pod, or a collection of applications in one pod. You can assign specific resources to the pod, or use the default settings.
+Applications can be added as a single application pod, or a collection of applications in one pod. You can assign specific resources to the pod, or use the default settings. 
+
+**For automatic deployment of the below applications, see [here](README-ansible.md).**
 
 If you have an existing container on your instance, Kubernetes will look for it first before looking up on public registries. Ensure that you indicate the repository, name and tag of the image in the image field under containers.
 
