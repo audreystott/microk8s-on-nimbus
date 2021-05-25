@@ -1,0 +1,15 @@
+---
+- name: Add an RStudio application to existing Microk8s cluster
+  hosts: localhost
+  vars_prompt:
+  - name: rstudio_password
+    prompt: "Enter a new password for RStudio"
+    private: no
+    - name: pubkey_path
+    prompt: "Enter the path to your ssh private key on your local machine"
+    private: no
+  tasks:
+  - name: Add an RStudio application
+    script:
+      cmd: /home/ubuntu/ansible_scripts/add_rstudio_app.sh '{{ pubkey_path }}' '{{ rstudio_port_number }}' '{{ public_ip_address }}' '{{ rstudio_password}}'
+  
