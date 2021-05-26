@@ -5,11 +5,20 @@
   - name: rstudio_password
     prompt: "Enter a new password for RStudio"
     private: no
-    - name: pubkey_path
+  - name: pubkey_path
     prompt: "Enter the path to your ssh private key on your local machine"
     private: no
   tasks:
   - name: Add an RStudio application
-    script:
-      cmd: /home/ubuntu/ansible_scripts/add_rstudio_app.sh '{{ pubkey_path }}' '{{ rstudio_port_number }}' '{{ public_ip_address }}' '{{ rstudio_password}}'
+    shell:
+      cmd: microk8s kubectl apply -f /home/ubuntu/rstudio-deployment.yaml --env="PASSWORD='$rstudio_password'" && microk8s kubectl expose deployment rstudio-deployment --target-port=8787 --name=rstudio-server --type=NodePort
+      creates: rstudio-server
+    become: yes
+  - name: Run instructions script
+    script: /home/ubuntu/ansible_scripts/add_rstudio_app.sh '{{ pubkey_path }}' '{{ rstudio_password}}'
+    become: yes
+    register: result_rstudio
+  - name: Print RStudio server instructions
+    debug: 
+      var: result_rstudio.stdout_lines
   
