@@ -12,4 +12,4 @@ Then go to a web browser and enter the following URL to run your conda Jupyter n
 
 The token to your Jupyter notebook is: '$jupyternotebook_token'
 
-****After exiting the Jupyter Notebook, close the 8888 port on your local computer****: lsof -ti:8888 | xargs kill -9'
+****After exiting the Jupyter Notebook, close the '$miniconda3_port_number' port on your local computer****: lsof -ti:'$miniconda3_port_number' | xargs kill -9'

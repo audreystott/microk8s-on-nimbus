@@ -11,7 +11,7 @@
   tasks:
   - name: Add an RStudio application
     shell:
-      cmd: microk8s kubectl apply -f /home/ubuntu/rstudio-deployment.yaml --env="PASSWORD='$rstudio_password'" && microk8s kubectl expose deployment rstudio-deployment --target-port=8787 --name=rstudio-server --type=NodePort
+      cmd: microk8s kubectl apply -f /home/ubuntu/rstudio-deployment.yaml && microk8s kubectl expose deployment rstudio-deployment --target-port=8787 --name=rstudio-server --type=NodePort
       creates: rstudio-server
     become: yes
   - name: Run instructions script

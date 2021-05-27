@@ -16,6 +16,9 @@ spec:
       containers:
       - name: rstudio
         image: rocker/tidyverse:4.0.3
+        env:
+        - name: PASSWORD
+          value: "{{ rstudio_password }}"
         ports:
         - containerPort: 8787
         volumeMounts:
