@@ -1,15 +1,15 @@
 #!/bin/bash
 
-echo "kind: PersistentVolumeClaim
-apiVersion: v1
+echo "apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: $1
+name: data-pvc
 spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
+accessModes:
+- ReadWriteOnce
+resources:
     requests:
-      storage: $2Gi
-  storageClassName: microk8s-hostpath" > pvc-test.yaml
+    storage: $1Gi
+storageClassName: data-vol-sc " > data-pvc.yaml
 
-sudo microk8s kubectl create -f pvc-test.yaml
+sudo microk8s kubectl create -f data-pvc.yaml

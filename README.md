@@ -7,6 +7,26 @@ Before starting, you will need to have:
 
 ## Install MicroK8s on Nimbus (Linux)
 
+### Install automatically
+
+To assist with an easy installation process, you can run our automated cluster deployment with storage volume added by followiung these instructions:
+
+1.  Go to your Nimbus dashboard and save your application credentials using the left-hand navigation bar as follows:
+
+    Identity > Application Credentials
+    
+    Click on **+Create Application Credential** and give it a name. You don't have to fill out the rest of the form. Make sure to have this file handy as you will be prompted to enter the ID and secret that is in the file.
+
+2. Know the data volume storage you would like to create, in gigabytes, e.g. 100GB
+
+Once you have the above two, run the following on a terminal for your Nimbus instance:
+
+    ansible-playbook ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i ansible_scripts/variables
+
+Next steps include [adding an application](README-ansible.md).
+
+### Install step-by-step
+
 The following instructions are for installation on Linux. For other operating systems, see the MicoK8s [documentation](https://microk8s.io/docs/install-alternatives).
 
 On your instance, install MicroK8s. We will refer to this instance as your master node:
@@ -95,9 +115,9 @@ As the above cloud configuration file is passed via Kubernetes secrets, the clou
 
 Save the above secret to the manifest `csi-secret-cinderplugin.yaml`:
 
-        cd ~/cloud-provider-openstack
+    cd ~/cloud-provider-openstack
         
-        sed -i 's/cloud.conf: .*/cloud.conf: REPLACE-WITH-YOUR-SECRET/g' manifests/cinder-csi-plugin/csi-secret-cinderplugin.yaml
+    sed -i 's/cloud.conf: .*/cloud.conf: REPLACE-WITH-YOUR-SECRET/g' manifests/cinder-csi-plugin/csi-secret-cinderplugin.yaml
 
 Create Kubernetes secret on MicroK8s:
 
@@ -231,6 +251,8 @@ On your local computer, enable port forwarding to access RStudio via a web brows
 Finally, go to a web browser and enter the following URL to run RStudio:
 
     http://localhost:PORT_NUMBER
+
+The username is rstudio, and the password is what you entered at runtime.
 
 ### Conda Jupyter notebook application
 

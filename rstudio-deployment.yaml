@@ -18,7 +18,7 @@ spec:
         image: rocker/tidyverse:4.0.3
         env:
         - name: PASSWORD
-          value: "{{ rstudio_password }}"
+          value: "rstudio_password"
         ports:
         - containerPort: 8787
         volumeMounts:
@@ -27,4 +27,4 @@ spec:
       volumes:
       - name: rstudio-data
         persistentVolumeClaim:
-          claimName: storage2
+          claimName: csi-pvc-cinderplugin
