@@ -1,6 +1,7 @@
 all:
   hosts: local
   vars:
+    application_credential_secret:
     storage_vol_name:
     storage_vol_size:
     pubkey_path:
@@ -9,3 +10,4 @@ all:
     rstudio_password:
     miniconda3_port_number: $(sudo microk8s kubectl get svc | grep -oP '8888:.{0,5}' | sed 's/^.*://')
     jupyternotebook_token: $(sudo microk8s kubectl logs deployment.apps/miniconda3-deployment | grep -oP -m 1 'token=.{0,}' | sed 's/^.*=//')
+    result:
