@@ -8,11 +8,11 @@
   tasks:
   - name: Add a Miniconda3 application
     shell:
-      cmd: microk8s kubectl apply -f /home/ubuntu/miniconda3-deployment.yaml && microk8s kubectl expose deployment miniconda3-deployment --target-port=8888 --name=conda-jupyternotebook --type=NodePort
+      cmd: microk8s kubectl apply -f /home/ubuntu/microk8s-on-nimbus/miniconda3-deployment.yaml && microk8s kubectl expose deployment miniconda3-deployment --target-port=8888 --name=conda-jupyternotebook --type=NodePort
       creates: conda-jupyternotebook
     become: yes
   - name: Run instructions script
-    script: /home/ubuntu/ansible_scripts/add_miniconda3_app.sh '{{ pubkey_path }}'
+    script: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_miniconda3_app.sh '{{ pubkey_path }}'
     become: yes
     register: result
   - name: Print Jupyter Notebook instructions

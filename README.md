@@ -21,6 +21,8 @@ To assist with an easy installation process, you can run our automated cluster d
 
 Once you have the above two, run the following on a terminal for your Nimbus instance:
 
+    git clone https://bitbucket.pawsey.org.au/scm/kub/microk8s-on-nimbus.git
+    
     ansible-playbook ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i ansible_scripts/variables
 
 Next steps include [adding an application](README-ansible.md).
@@ -68,14 +70,14 @@ To create a storage request using the default method, save the following content
     kind: PersistentVolumeClaim
     apiVersion: v1
     metadata:
-        name: storage1
-        spec:
-        accessModes:
-            - ReadWriteOnce
-        resources:
-            requests:
-            storage: 1Gi
-        storageClassName: microk8s-hostpath
+      name: storage1
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: microk8s-hostpath
 
 Then create the request:
 
@@ -162,14 +164,14 @@ Then write a PVC manifest `data-pvc.yaml' for the amount of storage you would li
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-    name: data-pvc
+      name: data-pvc
     spec:
-    accessModes:
-    - ReadWriteOnce
-    resources:
+      accessModes:
+        - ReadWriteOnce
+      resources:
         requests:
-        storage: 1Gi
-    storageClassName: data-vol-sc 
+          storage: $1Gi
+      storageClassName: data-vol-sc 
 
 Create the request as such:
 
