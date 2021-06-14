@@ -5,15 +5,25 @@ cd /home/ubuntu/microk8s-on-nimbus
 git clone https://github.com/kubernetes/cloud-provider-openstack.git
 
 #On your instance, make the following directory and change your directory to it
-sudo mkdir ~/.kube
-cd ~/.kube
+if [ -e ~/.kube ]
+then 
+  cd ~/.kube
+else
+  sudo mkdir ~/.kube
+  cd ~/.kube
+fi
 
 #Using the application credential ID and secret, save the following contents and name it cloud.conf
-sudo touch cloud.conf
-echo "[Global]
-auth-url=https://nimbus.pawsey.org.au:5000/v3
-application-credential-id=$1
-application-credential-secret=$2" | sudo tee -a cloud.conf
+if [ -f cloud.conf ]
+then
+  echo 'cloud.conf exists'
+else
+  sudo touch cloud.conf
+  echo "[Global]
+  auth-url=https://nimbus.pawsey.org.au:5000/v3
+  application-credential-id=$1
+  application-credential-secret=$2" | sudo tee -a cloud.conf
+fi
 
 #As the above cloud configuration file is passed via Kubernetes secrets, the cloud.conf contents need to be encoded with base64
 base64 -w 0 ~/.kube/cloud.conf

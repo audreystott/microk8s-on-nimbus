@@ -24,6 +24,3 @@
   - name: Create Persistent Volume Claim
     script: 
       cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_storage.sh '{{ storage_vol_size }}'
-  - name: Mount data volume
-    script:
-      cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/mount_data.sh

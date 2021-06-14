@@ -22,4 +22,8 @@
   - name: Print RStudio server instructions
     debug: 
       var: result_rstudio.stdout_lines
-  
+  - name: Mount data volume
+    script:
+      cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/mount_data.sh
+    args:
+      creates: /data    
