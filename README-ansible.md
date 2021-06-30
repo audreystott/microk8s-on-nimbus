@@ -1,4 +1,4 @@
-# Deploying Kubernetes applications automatically
+# Add Kubernetes applications automatically
 
 Once a MicroK8s cluster is set up on Nimbus, common Bioinformatics applications can be made to deploy automatically using Ansible.
 
