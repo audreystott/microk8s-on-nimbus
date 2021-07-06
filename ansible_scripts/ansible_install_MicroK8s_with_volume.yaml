@@ -12,15 +12,15 @@
     prompt: "Enter the size of your data storage volume in gigabytes"
     private: no
   tasks:
-  - name: Install MicrokK8s
+  - name: Install Microk8s
     script:
-      cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/install_microk8s.sh
+       cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/install_microk8s.sh
   - name: Set up Openstack cloud provider
     script:
-      cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_cloud_provider.sh '{{ application_credential_ID }}' '{{ application_credential_secret }}'
+       cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_cloud_provider.sh '{{ application_credential_ID }}' '{{ application_credential_secret }}'
   - name: Create Storage Class
     script:
-      cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_storage_class.sh
+       cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_storage_class.sh
   - name: Create Persistent Volume Claim
     script: 
-      cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_storage.sh '{{ storage_vol_size }}'
+       cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_storage.sh '{{ storage_vol_size }}'

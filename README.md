@@ -27,8 +27,8 @@ To assist with an easy installation process, you can run our automated cluster d
 Once you have the above two, run the following on a terminal for your Nimbus instance:
 
     git clone https://github.com/audreystott/microk8s-on-nimbus.git
-    
-    ansible-playbook ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i ansible_scripts/variables
+    cd microk8s-on-nimbus
+    bash ansible_scripts/install_microk8s.sh
 
 **Next steps include adding an application automatically. Skip to [it](README-ansible.md).**
 
