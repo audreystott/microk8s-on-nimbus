@@ -27,4 +27,4 @@ spec:
       volumes:
       - name: rstudio-data
         persistentVolumeClaim:
-          claimName: csi-pvc-cinderplugin
+          claimName: data-pvc
