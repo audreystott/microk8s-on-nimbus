@@ -238,7 +238,7 @@ If you have an existing container on your instance, Kubernetes will look for it 
             volumes:
             - name: rstudio-data
                 persistentVolumeClaim:
-                claimName: storage1        
+                claimName: data-pvc        
 
     Deploy this pod on microK8s:
 
@@ -296,7 +296,7 @@ If you have an existing container on your instance, Kubernetes will look for it 
         volumes:
         - name: miniconda3-data
             persistentVolumeClaim:
-            claimName: storage1
+            claimName: data-pvc
 
     Deploy this pod on microK8s:
         
