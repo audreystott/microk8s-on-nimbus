@@ -7,12 +7,19 @@ Before starting, you will need to have:
 - An instance for the master node
 - 1 or more instances as additional nodes (as required)
 
+## Requirements
+
+First ensure that Ansible is installed on your instance. To install Ansible, run the following:
+
+    sudo apt install --yes software-properties-common
+    sudo add-apt-repository --yes --update ppa:ansible/ansible
+    sudo apt install --yes ansible
 
 ## Install MicroK8s on Nimbus (Linux)
 
-Installing MicroK8s on Nimbus is simple, and you can choose to have it done automatically (recommended) OR step-by-step (for eperienced Linux users only).
+Installing MicroK8s on Nimbus is simple, and you can choose to have it done automatically (recommended) OR [step-by-step (for eperienced Linux users only)](README-steps.md).
 
-### A) Install automatically (recommmended)
+### Install automatically (recommmended)
 
 To assist with an easy installation process, you can run our automated cluster deployment with storage volume added by following these instructions:
 
@@ -22,28 +29,22 @@ To assist with an easy installation process, you can run our automated cluster d
     
     Click on **+Create Application Credential** and give it a name. You don't have to fill out the rest of the form. Make sure to have this file handy as you will be prompted to enter the ID and secret that is in the file.
 
-2) Know the data volume storage you would like to create, in gigabytes, e.g. 100GB
+2) Know the data volume storage you would like to create, in gigabytes, e.g. 100
 
-3) Once you have the above two, run the following on a terminal for your Nimbus instance:
+3) Once you have the above two, run the following on a terminal for your Nimbus instance. Note that installation will take at least 15 minutes. Keep the terminal open and active during this time.
 
         git clone https://github.com/audreystott/microk8s-on-nimbus.git
         cd microk8s-on-nimbus
-        bash ansible_scripts/install_microk8s.sh
+        ansible-playbook /ansible_install_MicroK8s_with_volume.yaml -i variables
 
-
-### B) Install step-by-step (for experienced Linux users)
-
-See [here](README-steps.md).
 
 ## Add an application
 
 Applications can be added as a single application pod, or a collection of applications in one pod. You can assign specific resources to the pod, or use the default settings. 
 
-### A) Add an application automatically (recommended)
+### Add an application automatically (recommended)
 
-Once a MicroK8s cluster is set up on Nimbus, common Bioinformatics applications can be made to deploy automatically using Ansible.
-
-First ensure that Ansible is installed on your instance. The following one-line command will run the MicroK8s commands for deploying each application, and you should get some instructions on how to run the application in the final "task" of the Ansible Playbook command.
+The following one-line command will run the MicroK8s commands for deploying each application, and you should get some instructions on how to run the application in the final "task" of the Ansible Playbook command.
 
 Run the command below for each application, ensuring to follow the prompts that come.
 
@@ -57,11 +58,8 @@ Run the command below for each application, ensuring to follow the prompts that 
 
     ansible-playbook ansible_scripts/ansible-rstudio.yaml -i ansible_scripts/variables
 
-For automatic deployment of the below applications, see [here](README-ansible.md).
 
-### B) Add an application step-by-step (for experienced Linux users)
-
-See [here](README-app-steps.md).
+To add an application step-by-step (for experienced Linux users), see [here](README-app-steps.md).
 
 
 ## Form a cluster (as required)
