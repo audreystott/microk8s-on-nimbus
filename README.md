@@ -35,7 +35,7 @@ To assist with an easy installation process, you can run our automated cluster d
 
         git clone https://github.com/audreystott/microk8s-on-nimbus.git
         cd microk8s-on-nimbus
-        ansible-playbook /ansible_install_MicroK8s_with_volume.yaml -i variables
+        ansible-playbook ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i variables
 
 
 ## Add an application
