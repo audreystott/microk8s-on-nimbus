@@ -14,7 +14,7 @@ spec:
         app: rstudio
     spec:
       containers:
-      - name: rstudio-versionnumber
+      - name: rstudio
         image: localhost:32000/rstudio-container
         imagePullPolicy: Never
         env:
