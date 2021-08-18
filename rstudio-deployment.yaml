@@ -14,17 +14,26 @@ spec:
         app: rstudio
     spec:
       containers:
-      - name: rstudio
-        image: rocker/tidyverse:4.0.3
+      - name: rstudio-versionnumber
+        image: localhost:32000/rstudio-container
+        imagePullPolicy: Never
         env:
         - name: PASSWORD
           value: "rstudio_password"
         ports:
         - containerPort: 8787
         volumeMounts:
-        - mountPath: '/home/rstudio/'
+        - mountPath: '/home'
           name: rstudio-data
+        - mountPath: '/var/lib/rstudio-server'
+          name: tmp-rstudio-server
+        - mountPath: '/var/run/rstudio-server'
+          name: tmp-rstudio-server
       volumes:
       - name: rstudio-data
         persistentVolumeClaim:
           claimName: data-pvc
+      - name: tmp-rstudio-server
+        hostPath:
+          path: /tmp/rstudio-server
+          type: Directory
