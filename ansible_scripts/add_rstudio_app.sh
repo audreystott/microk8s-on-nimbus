@@ -9,10 +9,10 @@ echo "--------------------------------------------------------------------------
 
 
         Run the following command on your local computer to enable port forwarding from this instance to your local computer:       
-                ssh -i $pubkey_path -N -f -L {{ rstudio_port_number }}:localhost:{{ rstudio_port_number }} ubuntu@$public_ip_address                                         
+                ssh -i $pubkey_path -N -f -L $rstudio_port_number:localhost:$rstudio_port_number ubuntu@$public_ip_address                                         
 
         Then go to a web browser and enter the following URL to run RStudio:                                                        
-                http://localhost:{{ rstudio_port_number }}                                                                                              
+                http://localhost:$rstudio_port_number                                                                                              
                 username = rstudio                                                                                                   
                 password = what your entered when prompted at the start                                                             
 
