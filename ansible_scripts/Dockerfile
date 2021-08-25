@@ -5,6 +5,6 @@ RUN install2.r --error \
       caTools                
 
 RUN mkdir /home/rstudio/library \
-      && echo 'myPaths <- .libPaths(); myPaths <- c(myPaths, \"/home/rstudio/library\"); .libPaths(myPaths)' >> /usr/local/lib/R/library/base/R/Rprofile"
+      && echo 'myPaths <- .libPaths(); myPaths <- c(myPaths, \"/home/rstudio/library\"); .libPaths(myPaths)' >> /usr/local/lib/R/library/base/R/Rprofile
 
 RUN R -e 'install.packages("BiocManager")'
