@@ -9,7 +9,7 @@
     prompt: "Enter the Application Credential secret from Nimbus dashboard"
     private: no
   - name: storage_vol_size
-    prompt: "Enter the size of your data storage volume in gigabytes"
+    prompt: "Enter the size of your data storage volume in gigabytes, e.g. 100"
     private: no
   tasks:
   - name: Install Microk8s

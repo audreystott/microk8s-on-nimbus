@@ -15,10 +15,11 @@ spec:
     spec:
       containers:
       - name: rstudio
-        image: localhost:32000/rstudio-container
+        image: localhost:32000/rstudio:4.0.3
+        imagePullPolicy: Never
         env:
         - name: PASSWORD
-          value: "rstudio_password"
+          value: "abc"
         ports:
         - containerPort: 8787
         volumeMounts:

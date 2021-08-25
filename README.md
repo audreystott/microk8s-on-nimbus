@@ -31,11 +31,10 @@ To assist with an easy installation process, you can run our automated cluster d
 
 2) Know the data volume storage you would like to create, in gigabytes, e.g. 100
 
-3) Once you have the above two, run the following on a terminal for your Nimbus instance. Note that installation will take at least 15 minutes. Keep the terminal open and active during this time.
+3) Once you have the above two, run the following on a terminal for your Nimbus instance. Note that installation will take at least 15 minutes. Keep the terminal open and active during this time, and answer the initial prompts.
 
         git clone https://github.com/audreystott/microk8s-on-nimbus.git
-        cd microk8s-on-nimbus
-        ansible-playbook ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i variables
+        ansible-playbook microk8s-on-nimbus/ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i variables
 
 
 ## Add an application
