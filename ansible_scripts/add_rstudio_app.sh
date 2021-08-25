@@ -18,8 +18,8 @@ echo "--------------------------------------------------------------------------
 
         All RStudio sessions and associated data will be saved under /data/rstudio.                                                                    
 
-        IMPORTANT: After exiting RStudio, close the 8787 port on your local computer:                                               
-                   lsof -ti:8787 | xargs kill -9                                                                                    
+        IMPORTANT: After exiting RStudio, close the $rstudio_port_number port on your local computer:                                               
+                   lsof -ti:$rstudio_port_number | xargs kill -9                                                                                    
 
 
 -----------------------------------------------------------------------------------------------------------------------------------"
