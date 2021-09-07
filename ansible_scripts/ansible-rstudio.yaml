@@ -89,8 +89,6 @@
   - name: Mount data volume
     command: mount /dev/vdc /data
     become: yes 
-    args:
-      creates: /data
   - name: Print RStudio server instructions
     debug: 
       var: result_rstudio.stdout_lines
