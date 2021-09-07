@@ -34,7 +34,7 @@ To assist with an easy installation process, you can run our automated cluster d
 3) Once you have the above two, run the following on a terminal for your Nimbus instance. Note that installation will take at least 15 minutes. Keep the terminal open and active during this time, and answer the initial prompts.
 
         git clone https://github.com/audreystott/microk8s-on-nimbus.git
-        ansible-playbook microk8s-on-nimbus/ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i variables
+        ansible-playbook microk8s-on-nimbus/ansible_scripts/ansible_install_MicroK8s_with_volume.yaml -i microk8s-on-nimbus/ansible_scripts/variables
 
 
 ## Add an application
@@ -51,11 +51,11 @@ Run the command below for each application, ensuring to follow the prompts that 
 
 #### Conda Jupyter Notebook
 
-    ansible-playbook ansible_scripts/ansible-miniconda3.yaml -i ansible_scripts/variables
+    ansible-playbook microk8s-on-nimbus/ansible_scripts/ansible-miniconda3.yaml -i microk8s-on-nimbus/ansible_scripts/variables
 
 #### RStudio Server
 
-    ansible-playbook ansible_scripts/ansible-rstudio.yaml -i ansible_scripts/variables
+    ansible-playbook microk8s-on-nimbus/ansible_scripts/ansible-rstudio.yaml -i microk8s-on-nimbus/ansible_scripts/variables
 
 
 To add an application step-by-step (for experienced Linux users), see [here](README-app-steps.md).

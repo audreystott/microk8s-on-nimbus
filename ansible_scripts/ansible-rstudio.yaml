@@ -26,27 +26,18 @@
   tasks:
   - name: Print R version number
     shell: echo {{ R_version }}
-    register: R_version_number
-  - name: Dockerfile changes for R_version == 3.6.3
-    shell: |
-      cp Dockerfile Dockerfile-{{ container_name }}_{{ container_version }}
-      echo "RUN mkdir /home/rstudio/library \
-      && echo 'myPaths <- .libPaths(); myPaths <- c(myPaths, \"/home/rstudio/library\"); .libPaths(myPaths)' >> /usr/local/lib/R/library/base/R/Rprofile" >> Dockerfile-{{ container_name }}_{{ container_version }}
-    become: yes
-    when: R_version_number.stdout == "3.6.3"  
-  - name: Dockerfile changes for R_version != 3.6.3
-    shell: |
-      cp Dockerfile Dockerfile-{{ container_name }}_{{ container_version }}
-      echo "RUN sed -i '1488s|true|false|' /usr/lib/rstudio-server/resources/schema/user-prefs-schema.json" >> Dockerfile-{{ container_name }}_{{ container_version }} #to uncheck memory usage showing up
-    when: R_version_number.stdout != "3.6.3" 
+    register: R_version_number  
   - name: Completing the Dockerfile
     shell: |
+      cp Dockerfile Dockerfile-{{ container_name }}_{{ container_version }}    
       sed -i "s|tidyverse:4.0.3|tidyverse:{{ R_version }}|g" Dockerfile-{{ container_name }}_{{ container_version }}
       sed -i "s|caTools|caTools {{ R_tools }}|g" Dockerfile-{{ container_name }}_{{ container_version }}
-      echo "RUN R -e 'library(BiocManager)' \
-      && R -e 'BiocManager::install({{ BiocManager_tools }})'" >> Dockerfile-{{ container_name }}_{{ container_version }}
+      sed -i "s|library(BiocManager)|library(BiocManager);BiocManager::install({{ BiocManager_tools }})|g" Dockerfile-{{ container_name }}_{{ container_version }}
     args:
       warn: false
+  - name: Dockerfile addition for R_version != 3.6.3
+    command: echo "RUN sed -i '1488s|true|false|' /usr/lib/rstudio-server/resources/schema/user-prefs-schema.json" >> Dockerfile-{{ container_name }}_{{ container_version }} #to uncheck memory usage showing up
+    when: R_version_number.stdout != "3.6.3" 
   - name: Building the Docker image
     command: docker build -f Dockerfile-{{ container_name }}_{{ container_version }} -t localhost:32000/{{ container_name }}:{{ container_version }} .
     become: yes
@@ -62,6 +53,7 @@
     command: mkdir -p /tmp/rstudio-server
     args:  
       creates: /tmp/rstudio-server
+      warn: false
   - name: Create a data folder
     command: mkdir /data
     become: yes
@@ -72,10 +64,19 @@
     become: yes
     args:
       warn: false
+  - name: Delete any existing RStudio deployment
+    command: microk8s kubectl delete deployment.apps/rstudio-deployment service/rstudio-server
+    become: yes
+    ignore_errors: yes
   - name: Add an RStudio application
     shell:
-      cmd: sed -i 's/rstudio/{{ container_name }}/g' /home/ubuntu/microk8s-on-nimbus/rstudio-deployment.yaml && sed -i 's/rstudio-container/{{ container_name }}:{{ container_version }}/g' /home/ubuntu/microk8s-on-nimbus/rstudio-deployment.yaml && sed -i 's/rstudio_password/{{ rstudio_password }}/g' /home/ubuntu/microk8s-on-nimbus/rstudio-deployment.yaml && microk8s kubectl apply -f /home/ubuntu/microk8s-on-nimbus/rstudio-deployment.yaml && microk8s kubectl expose deployment rstudio-deployment --target-port=8787 --name=rstudio-server --type=NodePort
-      creates: rstudio-server
+      cmd: cp /home/ubuntu/microk8s-on-nimbus/rstudio-deployment.yaml /home/ubuntu/microk8s-on-nimbus/rstudio-deployment-{{ container_name }}_{{ container_version }}.yaml && 
+           sed -i 's/rstudio/{{ container_name }}/g' /home/ubuntu/microk8s-on-nimbus/rstudio-deployment-{{ container_name }}_{{ container_version }}.yaml && 
+           sed -i 's/rstudio-container/{{ container_name }}:{{ container_version }}/g' /home/ubuntu/microk8s-on-nimbus/rstudio-deployment-{{ container_name }}_{{ container_version }}.yaml && 
+           sed -i 's/rstudio_password/{{ rstudio_password }}/g' /home/ubuntu/microk8s-on-nimbus/rstudio-deployment-{{ container_name }}_{{ container_version }}.yaml && 
+           microk8s kubectl apply -f /home/ubuntu/microk8s-on-nimbus/rstudio-deployment-{{ container_name }}_{{ container_version }}.yaml && 
+           microk8s kubectl expose deployment rstudio-deployment --target-port=8787 --name={{ container_name }}-server --type=NodePort
+      creates: "{{ container_name }}-server"
       warn: false
     become: yes
   - name: Wait for Kubernetes to deploy service

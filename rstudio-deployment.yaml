@@ -15,8 +15,7 @@ spec:
     spec:
       containers:
       - name: rstudio
-        image: localhost:32000/rstudio:4.0.3
-        imagePullPolicy: Never
+        image: localhost:32000/rstudio-container
         env:
         - name: PASSWORD
           value: "abc"

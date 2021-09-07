@@ -3,7 +3,7 @@
   hosts: localhost
   vars_prompt:
   - name: pubkey_path
-    prompt: "Enter the path to your ssh public key on your local machine"
+    prompt: "Enter the path to your ssh private key on your local machine, e.g. ~/.ssh/id_rsa.key"
     private: no
   tasks:
   - name: Add a Miniconda3 application
@@ -11,6 +11,9 @@
       cmd: microk8s kubectl apply -f /home/ubuntu/microk8s-on-nimbus/miniconda3-deployment.yaml && microk8s kubectl expose deployment miniconda3-deployment --target-port=8888 --name=conda-jupyternotebook --type=NodePort
       creates: conda-jupyternotebook
     become: yes
+  - name: Wait for Kubernetes to deploy service
+    wait_for:
+      timeout: 100
   - name: Run instructions script
     script: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_miniconda3_app.sh '{{ pubkey_path }}'
     become: yes
