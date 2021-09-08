@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: rstudio
-        image: localhost:32000/rstudio-container
+        image: rocker/rstudio:R_version
         env:
         - name: PASSWORD
           value: "abc"
