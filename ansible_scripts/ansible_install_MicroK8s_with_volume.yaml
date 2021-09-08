@@ -15,6 +15,7 @@
   - name: Install Microk8s
     script:
        cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/install_microk8s.sh
+       creates: /snap/bin/microk8s
   - name: Set up Openstack cloud provider
     script:
        cmd: /home/ubuntu/microk8s-on-nimbus/ansible_scripts/add_cloud_provider.sh '{{ application_credential_ID }}' '{{ application_credential_secret }}'
