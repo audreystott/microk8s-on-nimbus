@@ -18,11 +18,11 @@ spec:
         image: rocker/rstudio:R_version
         env:
         - name: PASSWORD
-          value: "abc"
+          value: "rstudio_password"
         ports:
         - containerPort: 8787
         volumeMounts:
-        - mountPath: '/home'
+        - mountPath: '/home/rstudio/'
           name: rstudio-data
         - mountPath: '/var/lib/rstudio-server'
           name: tmp-rstudio-server
