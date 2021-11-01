@@ -1,7 +1,10 @@
 # MicroK8s Cluster on Nimbus
-This doumentation is for using Kubernetes on your Nimbus instance(s). The steps will enable you to run your own Kubernetes cluster and automatically deploy applications such as RStudio and JupyterHub.
+
+This documentation is for using Kubernetes on your Nimbus instance(s). The steps will enable you to run your own Kubernetes cluster and automatically deploy applications such as RStudio and JupyterHub.
 
 If you have a number of Nimbus instances and would like to make use of them as a cluster for your project's compute requirements, then MicroK8s is the simplest way to do that.
+
+## Before you begin
 
 Before starting, you will need to have:
 - An instance for the master node
@@ -17,7 +20,8 @@ First ensure that Ansible is installed on your instance. To install Ansible, run
 
 ## Install MicroK8s on Nimbus (Linux)
 
-Installing MicroK8s on Nimbus is simple, and you can choose to have it done automatically (recommended) OR [step-by-step (for eperienced Linux users only)](README-steps.md).
+It's simple to install MicroK8s on Nimbus using our automated cluster deployment. This is the recommended method.
+You can also choose to install MicroK8s by following the [step-by-step (for eperienced Linux users only)](README-steps.md) (for experienced Linux users only).
 
 ### Install automatically (recommmended)
 
@@ -45,7 +49,7 @@ Applications can be added as a single application pod, or a collection of applic
 
 The following one-line command will run the MicroK8s commands for deploying each application, and you should get some instructions on how to run the application in the final "task" of the Ansible Playbook command.
 
-Run the command below for each application, ensuring to follow the prompts that come.
+Below are some examples of applications that are commonly used to run scientific analyses. Run the command below for the application of choice, ensuring to follow the prompts that come.
 
 *Note: If this is not the first deployment, and there is already a MicroK8s service exposed with the same name (e.g. conda-jupyternotebook), you will need rename the service for this deployment in the relevant deployment yaml manifest.*
 
@@ -61,9 +65,9 @@ Run the command below for each application, ensuring to follow the prompts that 
 To add an application step-by-step (for experienced Linux users), see [here](README-app-steps.md).
 
 
-## Form a cluster (as required)
+## Form a cluster (optional)
 
-Next, you can form a cluster by adding other instances (as nodes) to the master node. To add more nodes:
+Now you can form a cluster by adding other instances (as nodes) to the master node. This step is optional. To add more nodes:
 
     sudo microk8s add-node
 
