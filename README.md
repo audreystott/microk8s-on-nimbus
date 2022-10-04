@@ -125,7 +125,13 @@ Check that it has been created successfully:
 	
 	sudo microk8s kubectl get pvc data-pvc
 
-On your Nimbus dashboard, you should now see a new volume that has the description "Created by OpenStack Cinder CSI driver" and a file system that it has been attached to, usually `/dev/sdc` (`/dev/vdc` if it is an older Nimbus instance). Make sure to mount `/dev/sdc` to a `/data` folder on your instance so that you can read and write all your data on there with the applications that you will be using.
+On your Nimbus dashboard, you should now see a new volume that has the description "Created by OpenStack Cinder CSI driver" and a file system that it has been attached to, usually `/dev/sdc` (`/dev/vdc` if it is an older Nimbus instance). 
+
+*If it isn't attached, manually attach the volume to the instance on your Nimbus dashboard, and format the volume:*
+
+	sudo mkfs.ext4 /dev/sdc
+
+Then, make sure to mount `/dev/sdc` to a `/data` folder on your instance so that you can read and write all your data on there with the applications that you will be using.
 
 	sudo mkdir /data
  
