@@ -14,7 +14,7 @@ Before starting, you will need to have:
 
 On your instance, install MicroK8s. We will refer to this instance as your master node:
 
-	sudo snap install microk8s --classic=1.19/stable
+	sudo snap install microk8s --classic --channel=1.19/stable
 
 Turn on the following services for the node:
 
