@@ -141,17 +141,19 @@ Then, make sure to mount `/dev/sdc` to a `/data` folder on your instance so that
 
 ## Form a cluster
 
+**Note that before doing so, you need to install MicroK8s on the other instance(s) as above.**
+
 Now you can form a cluster by adding other instances (as nodes) to the master node. This step is optional. To add more nodes:
 
     sudo microk8s add-node
 
 You should see some instructions for joining another instance as a node to the master node. Copy the command that looks like 'microk8s join <master>:<port>/<token>' and run it on the other instance you would like to join as an additional node.
 
-**Note that before doing so, you need to install MicroK8s on the other instance(s) as above.**
-
 Once the node is successfully added, you will see its status change from NotReady to Ready:
 
     sudo microk8s kubectl get no
+
+**To add a third node, run the `add-node` command from the node you just added.**
 
 At any time, you may also remove a node from a cluster. On the node you want to remove, run:
 
