@@ -12,11 +12,11 @@ Before starting, you will need to have:
 
 ## Install MicroK8s on Nimbus
 
-On your instance, install MicroK8s. We will refer to this instance as your master node:
+On all instances for the cluster, install MicroK8s:
 
 	sudo snap install microk8s --classic --channel=1.19/stable
 
-Turn on the following services for the node:
+Turn on the following services for each of the instance:
 
 	sudo microk8s enable dashboard dns registry ha-cluster
 
@@ -147,7 +147,7 @@ Now you can form a cluster by adding other instances (as nodes) to the master no
 
 You should see some instructions for joining another instance as a node to the master node. Copy the command that looks like 'microk8s join <master>:<port>/<token>' and run it on the other instance you would like to join as an additional node.
 
-**Note that before doing so, you need to install MicroK8s on the other instance(s) as well.**
+**Note that before doing so, you need to install MicroK8s on the other instance(s) as above.**
 
 Once the node is successfully added, you will see its status change from NotReady to Ready:
 
